@@ -1,0 +1,6 @@
+module PoisonReconLib {
+    module lib {
+        header "PoissonReconLib.h"
+        export *
+    }
+}

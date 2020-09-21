@@ -30,7 +30,7 @@ DAMAGE.
 #define GEOMETRY_INCLUDED
 
 #ifndef _OPENMP
-#error OpenMP is required
+//#error OpenMP is required
 #endif
 
 #include <math.h>

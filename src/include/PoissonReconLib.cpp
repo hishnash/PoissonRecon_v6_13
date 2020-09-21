@@ -66,7 +66,7 @@ void DumpOutput2( char* str , const char* format , ... );
 #include "MultiGridOctreeData.h"
 
 #ifndef _OPENMP
-#error OpenMP is required
+//#error OpenMP is required
 #endif
 #define DEFAULT_FULL_DEPTH 5
 
@@ -479,4 +479,38 @@ int PoissonReconLibMain( int argc , char* argv[] )
 
 
 	return EXIT_SUCCESS;
+}
+
+
+void clear_int_data() {
+    int_data.clear();
+}
+void clear_double_data() {
+    double_data.clear();
+}
+void clear_mem_data() {
+    mem_data.clear();
+}
+void resize_mem_data(size_t size) {
+    mem_data.resize(size);
+}
+void set_mem_data(size_t index, double value) {
+    mem_data[index] = value;
+}
+
+size_t int_data_size() {
+    return int_data.size();
+}
+
+size_t double_data_size() {
+    return double_data.size();
+}
+
+
+int* int_data_ptr() {
+    return &int_data[0];
+}
+
+double* double_data_ptr() {
+    return &double_data[0];
 }
