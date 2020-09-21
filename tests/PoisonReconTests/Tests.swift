@@ -55,7 +55,7 @@ final class Tests: XCTestCase {
                 SIMD3([0, 1, 0 ]),
                 SIMD3([0, 1, 0 ]),
                 SIMD3([0, 1, 0 ]),
-            ], scale: 10, samples_per_node: 5)
+            ], full_depth: 2, scale: 20, samples_per_node: 1)
         print(v)
     }
 }
