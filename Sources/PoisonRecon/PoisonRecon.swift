@@ -27,6 +27,13 @@ public struct PoisonRecon {
             enable_density: Bool=false
     ) throws -> (faces: [SIMD3<Int64>], vertities: [SIMD3<Float>]) {
     
+        defer {
+            clear_int_data()
+            clear_double_data()
+            clear_mem_data()
+        }
+        
+        
         let arg_depth = String(depth)
         let arg_full_depth = String(full_depth)
         let arg_scale = String(scale)
@@ -95,6 +102,7 @@ public struct PoisonRecon {
         defer {
             for ptr in cargs { free(UnsafeMutablePointer(mutating: ptr)) }
         }
+        
         let result = PoissonReconLibMain(Int32(args.count), &cargs)
         
         guard result == 0 else { throw Errors.unexpectedReturnValue(result) }
@@ -135,11 +143,6 @@ public struct PoisonRecon {
             )
 
         }
-        
-        
-        clear_int_data()
-        clear_double_data()
-        clear_mem_data()
         
         return (
             faces,
