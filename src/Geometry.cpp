@@ -53,6 +53,8 @@ BufferedReadWriteFile::BufferedReadWriteFile( char* fileName , int bufferSize )
 #ifdef _WIN32
 		_mktemp( _fileName );
 		_fp = fopen( _fileName , "w+b" );
+#elif __APPLE__
+        _fp = tmpfile();
 #else // !_WIN32
 		_fp = fdopen( mkstemp( _fileName ) , "w+b" );
 #endif // _WIN32
