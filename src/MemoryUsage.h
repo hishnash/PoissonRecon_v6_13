@@ -167,14 +167,19 @@ policy %lu (since kernel 2.5.19)
 #include <mach/task.h>
 #include <mach/mach_init.h>
 
-void getres(unsigned long *rss, unsigned long *vs)
+void getres(unsigned long *rss)
 {
     struct task_basic_info t_info;
     mach_msg_type_number_t t_info_count = TASK_BASIC_INFO_COUNT;
+    
+    // This seams to give the correc tnumbers on both iOS and macOS
+    if (task_info(current_task(), TASK_BASIC_INFO, (task_info_t)&t_info, &t_info_count) == KERN_SUCCESS) {
+        *rss = t_info.resident_size;
+    } else {
+        // Fake memory
+        *rss = 0;
+    }
 
-    task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&t_info, &t_info_count);
-    *rss = t_info.resident_size;
-    *vs = t_info.virtual_size;
 }
 
 class MemoryInfo
@@ -182,8 +187,8 @@ class MemoryInfo
  public:
   static size_t Usage(void)
   {
-    unsigned long rss, vs, psize;
-    getres(&rss, &vs);
+    unsigned long rss, psize;
+    getres(&rss);
     return rss;
   }
 

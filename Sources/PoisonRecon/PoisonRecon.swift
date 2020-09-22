@@ -56,11 +56,8 @@ public struct PoisonRecon {
         
         for (i, point) in points.enumerated() {
             for index in point.indices {
-                print("setting v \(point[index]) at index \(index + i * (6))")
                 // set value at index
-                set_mem_data(index + i * (6), Double(point[index]))
-                
-                print("setting n \(normals[i][index]) at index \(index + 3 + i * (6))")
+                set_mem_data(index + i * (6), Double(point[index]))                
                 set_mem_data(index + 3 + i * (6), Double(normals[i][index]))
             }
         }
